@@ -78,22 +78,7 @@ class Report:
     @commands.command(name='getModMail')
     @commands.has_any_role('Tournament Support', 'Admin', 'Moderator', 'Director')
     async def get_mod_mail(self, ctx, user: discord.User):
-        try:
-            with open(f"logs/{user.id}.txt", 'r') as f:
-                contents = f.read()
-                try:
-                    await ctx.send(f"(Times in UTC)```{contents}```", file=discord.File(f"logs/{user.id}.txt"))
-                except discord.HTTPException:
-                    await ctx.send(
-                        'The log was too long, the file will be sent here and the entire log will be paginated to'
-                        ' you.', file=discord.File(f"logs/{user.id}.txt"))
-                    for x in range(int(len(contents) / 1500)):
-                        range1 = x * 1500
-                        range2 = (x + 1) * 1500
-                        print(f'{range1}:{range2}\n{contents}')
-                        await ctx.author.send(f'```{contents[range1:range2]}```')
-        except FileNotFoundError:
-            await ctx.send('The user has no logs on file.')
+            await ctx.send('Function deprecated.')
 
     def save(self):
         dataIO.save_json("data/reports/users.json", self.db)
